@@ -58,6 +58,9 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
 #slbl { font-weight: 500; color: var(--wine); min-width: 28px; }
 .reset { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--wine); background: none; border: 1.5px solid rgba(107,26,42,0.3); border-radius: 8px; padding: 7px 12px; cursor: pointer; transition: all .15s; font-weight: 500; white-space: nowrap; }
 .reset:hover { background: var(--wine); color: #fff; border-color: var(--wine); }
+.champ-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--gold); background: none; border: 1.5px solid rgba(201,168,76,0.35); border-radius: 8px; padding: 7px 12px; cursor: pointer; transition: all .15s; font-weight: 500; white-space: nowrap; }
+.champ-btn:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+.champ-btn.on { background: var(--gold); color: var(--wine-dark); border-color: var(--gold); }
 #cnt { margin-left: auto; font-size: 12px; color: var(--muted); white-space: nowrap; }
 
 .wrap { max-width: 1120px; margin: 0 auto; padding: 26px 40px 60px; }
@@ -86,43 +89,6 @@ tr:hover td { background: rgba(107,26,42,0.02); }
 .pb:disabled { opacity: .3; cursor: not-allowed; }
 .pi { font-size: 11px; color: var(--muted); margin: 0 5px; }
 
-/* ── Champions ───────────────────────────────────────── */
-.champ-wrap { background: linear-gradient(160deg,#2d0910 0%,var(--wine-dark) 60%,#2d0910 100%); padding: 44px 40px 48px; border-bottom: 1px solid rgba(201,168,76,.18); }
-.champ-in  { max-width: 1120px; margin: 0 auto; }
-.champ-hd  { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
-.champ-hd h2 { font-family:'Cormorant Garamond',serif; font-size: clamp(22px,3.5vw,36px); font-weight:600; color:var(--cream); white-space:nowrap; }
-.champ-hd h2 em { color:var(--gold-l); font-style:italic; }
-.champ-rule{ flex:1; height:1px; background:rgba(201,168,76,.2); }
-.champ-desc{ font-size:12px; color:rgba(247,240,230,.4); margin-bottom:20px; }
-.champ-filter{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:22px; }
-.champ-filter input[type=text]{
-  font-family:'DM Sans',sans-serif; font-size:13px; color:var(--cream);
-  border:1.5px solid rgba(201,168,76,.25); border-radius:8px;
-  background:rgba(255,255,255,.05); outline:none; padding:8px 12px;
-  transition:border-color .15s; width:220px; caret-color:var(--gold-l);
-}
-.champ-filter input::placeholder{ color:rgba(247,240,230,.3); }
-.champ-filter input:focus{ border-color:var(--gold-l); }
-.champ-sort{ font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(247,240,230,.5); background:none; border:1.5px solid rgba(201,168,76,.2); border-radius:8px; padding:7px 26px 7px 10px; cursor:pointer; appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A84C' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat; background-position:right 8px center; }
-.champ-sort option{ background:#3d0b16; color:var(--cream); }
-#champ-cnt{ font-size:12px; color:rgba(247,240,230,.35); margin-left:auto; }
-.champ-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; }
-.cc{
-  background:rgba(255,255,255,.04); border:1px solid rgba(201,168,76,.18);
-  border-radius:12px; padding:16px 18px 14px; cursor:default;
-  transition:transform .15s, border-color .15s, background .15s; position:relative;
-}
-.cc:hover{ transform:translateY(-2px); border-color:rgba(201,168,76,.45); background:rgba(201,168,76,.06); }
-.cc-top{ border-color:rgba(201,168,76,.5); background:rgba(201,168,76,.08); }
-.cc-top::after{ content:'👑'; position:absolute; top:10px; right:12px; font-size:13px; }
-.cc-score{ font-family:'Cormorant Garamond',serif; font-size:38px; font-weight:600; color:var(--gold-l); line-height:1; }
-.cc-variety{ font-size:11px; letter-spacing:1px; text-transform:uppercase; color:rgba(201,168,76,.65); margin:4px 0 6px; }
-.cc-name{ font-size:12px; font-weight:500; color:var(--cream); margin-bottom:3px; line-height:1.3; }
-.cc-obec{ font-size:11px; color:rgba(247,240,230,.4); }
-.cc-hidden{ display:none !important; }
-
 .msg { text-align: center; padding: 60px 20px; color: var(--muted); }
 .mi2 { font-size: 34px; margin-bottom: 10px; opacity: .4; }
 .mt { font-family: 'Cormorant Garamond', serif; font-size: 20px; }
@@ -136,8 +102,6 @@ footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted)
   h1 { font-size: 28px; }
   .hm { display: none; }
   th, td { padding: 9px 8px; font-size: 12px; }
-  .champ-wrap { padding: 28px 14px 32px; }
-  .champ-grid { grid-template-columns: repeat(auto-fill,minmax(150px,1fr)); gap:9px; }
 }
 </style>
 </head>
@@ -157,26 +121,6 @@ footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted)
   </div>
 </header>
 
-<section class="champ-wrap" id="champ-wrap">
-  <div class="champ-in">
-    <div class="champ-hd">
-      <h2>🏆 Šampioni <em>odrůd</em></h2>
-      <div class="champ-rule"></div>
-    </div>
-    <p class="champ-desc">Nejlépe hodnocené víno každé zastoupené odrůdy · seřazeno dle bodů</p>
-    <div class="champ-filter">
-      <input type="text" id="cq" placeholder="Hledat odrůdu nebo pěstitele…" oninput="CR()">
-      <select class="champ-sort" id="csort" onchange="CR()">
-        <option value="score">Seřadit: body ↓</option>
-        <option value="variety">Seřadit: odrůda A–Z</option>
-        <option value="grower">Seřadit: pěstitel A–Z</option>
-      </select>
-      <span id="champ-cnt"></span>
-    </div>
-    <div class="champ-grid" id="champ-grid"></div>
-  </div>
-</section>
-
 <div class="bar">
   <div class="bar-in">
     <div class="sw">
@@ -192,6 +136,7 @@ footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted)
       <span id="slbl">14.0</span>
     </div>
     <button class="reset" onclick="rst()">✕ Reset</button>
+    <button class="champ-btn" id="champBtn" onclick="toggleChamp()">🏆 Šampioni odrůd</button>
     <span id="cnt"></span>
   </div>
 </div>
@@ -219,44 +164,24 @@ footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted)
 <footer>Degustace vín 2026 · Boršice a okolí · Zdroj dat: degustace_vin_2026.csv</footer>
 
 <script>
-// ── Champions ─────────────────────────────────────────
-let CHAMPS = [];
+let ALL=[], fil=[], sc='body', sd=-1, pg=1, champOnly=false;
+const PER=30;
 
-function buildChamps(data){
+let CHAMP_SET = new Set();
+function buildChampSet(data){
   const byVar = {};
   data.forEach(r=>{
     if(!r.odrada||!r.body) return;
     if(!byVar[r.odrada]||r.body>byVar[r.odrada].body) byVar[r.odrada]=r;
   });
-  CHAMPS = Object.values(byVar);
-  CR();
+  CHAMP_SET = new Set(Object.values(byVar).map(r=>r.vzorek));
 }
 
-function CR(){
-  const q  = (document.getElementById('cq').value||'').toLowerCase();
-  const sort = document.getElementById('csort').value;
-  let list = CHAMPS.filter(r=>!q||r.odrada.toLowerCase().includes(q)||r.pestitel.toLowerCase().includes(q)||r.obec.toLowerCase().includes(q));
-  const maxB = Math.max(...CHAMPS.map(r=>r.body));
-  list = [...list].sort((a,b)=>{
-    if(sort==='variety') return a.odrada.localeCompare(b.odrada,'cs');
-    if(sort==='grower')  return a.pestitel.localeCompare(b.pestitel,'cs');
-    return b.body - a.body;
-  });
-  document.getElementById('champ-cnt').textContent = `${list.length} odrůd`;
-  const grid = document.getElementById('champ-grid');
-  grid.innerHTML = list.map(r=>{
-    const top = r.body === maxB ? 'cc-top' : '';
-    return `<div class="cc ${top}">
-      <div class="cc-score">${r.body.toFixed(1)}</div>
-      <div class="cc-variety">${r.odrada}</div>
-      <div class="cc-name">${r.pestitel}</div>
-      <div class="cc-obec">${r.obec}</div>
-    </div>`;
-  }).join('');
+function toggleChamp(){
+  champOnly = !champOnly;
+  document.getElementById('champBtn').classList.toggle('on', champOnly);
+  pg=1; R();
 }
-
-
-const PER=30;
 
 async function load(){
   const res = await fetch('degustace_vin_2026.csv');
@@ -277,7 +202,7 @@ async function load(){
   F('fo',[...new Set(ALL.map(r=>r.obec))].filter(Boolean).sort());
   F('fd',[...new Set(ALL.map(r=>r.odrada))].filter(Boolean).sort());
   F('fr',[...new Set(ALL.map(r=>r.rocnik))].filter(Boolean).sort().reverse());
-  buildChamps(ALL);
+  buildChampSet(ALL);
   document.getElementById('loading').style.display='none';
   document.getElementById('tbl').style.display='table';
   S('body');
@@ -312,7 +237,8 @@ function R(){
   const mn=parseFloat(document.getElementById('fs').value);
   fil=ALL.filter(r=>
     (!q||[r.pestitel,r.odrada,r.vzorek,r.obec].join(' ').toLowerCase().includes(q))&&
-    (!ob||r.obec===ob)&&(!od||r.odrada===od)&&(!ro||r.rocnik===ro)&&r.body>=mn
+    (!ob||r.obec===ob)&&(!od||r.odrada===od)&&(!ro||r.rocnik===ro)&&r.body>=mn&&
+    (!champOnly||CHAMP_SET.has(r.vzorek))
   );
   fil.sort((a,b)=>{
     const av=a[sc],bv=b[sc];
@@ -353,6 +279,8 @@ function rst(){
   ['fo','fd','fr'].forEach(id=>document.getElementById(id).value='');
   const sl=document.getElementById('fs');sl.value=14;sl.style.setProperty('--v','0%');
   document.getElementById('slbl').textContent='14.0';
+  champOnly=false;
+  document.getElementById('champBtn').classList.remove('on');
   pg=1;R();
 }
 
