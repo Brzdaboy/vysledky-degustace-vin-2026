@@ -128,6 +128,11 @@ footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted)
     <select id="fo" onchange="R()"><option value="">Všechny obce</option></select>
     <select id="fd" onchange="R()"><option value="">Všechny odrůdy</option></select>
     <select id="fr" onchange="R()"><option value="">Všechny ročníky</option></select>
+    <select id="fch" onchange="R()">
+      <option value="">Všechna vína</option>
+      <option value="champ">🏆 Šampióni (39 vín)</option>
+      <option value="top">⭐ Top vína (≥ 19.0)</option>
+    </select>
     <div class="rw">
       Min:
       <input type="range" id="fs" min="14" max="19.5" step="0.1" value="14" oninput="si(this)">
@@ -160,9 +165,10 @@ footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted)
   </div>
 </div>
 
-<footer>Degustace vín 2026 · Boršice a okolí · Zdroj dat: degustace_vin_2026.csv</footer>
+<footer>Degustace vín 2026 · Boršice a okolí · Vytvořil <a href="https://www.michalbrzica.cz" target="_blank" style="color:var(--wine);text-decoration:none;">Michal Brzica</a></footer>
 
 <script>
+const CHAMPS=new Set(['Ag2','Al6','An4','Au2','CB3','CC6','CM2','CS8','Df15','PSV1','Fr1','Hi14','Bou21','Ch35','Ke3','MM7','MP1','MT16','Mus3','Ng5','Pa29','RB6','RM9','RR64','RŠ35','RV2','Sg21','SmČ1','SmB7','SoG6','Sol8','Sv17','Ro12','SZ3','TČ22','VČR4','VZ14','Zw8','Čou5']);
 let ALL=[], fil=[], sc='body', sd=-1, pg=1;
 const PER=30;
 
@@ -227,10 +233,13 @@ function R(){
   const ob=document.getElementById('fo').value;
   const od=document.getElementById('fd').value;
   const ro=document.getElementById('fr').value;
+  const ch=document.getElementById('fch').value;
   const mn=parseFloat(document.getElementById('fs').value);
+  const maxB=Math.max(...ALL.map(r=>r.body));
   fil=ALL.filter(r=>
     (!q||[r.pestitel,r.odrada,r.vzorek,r.obec].join(' ').toLowerCase().includes(q))&&
-    (!ob||r.obec===ob)&&(!od||r.odrada===od)&&(!ro||r.rocnik===ro)&&r.body>=mn
+    (!ob||r.obec===ob)&&(!od||r.odrada===od)&&(!ro||r.rocnik===ro)&&r.body>=mn&&
+    (!ch||(ch==='champ'&&CHAMPS.has(r.vzorek))||(ch==='top'&&r.body>=maxB))
   );
   fil.sort((a,b)=>{
     const av=a[sc],bv=b[sc];
@@ -268,7 +277,7 @@ function G(p){pg=p;R();window.scrollTo({top:0,behavior:'smooth'});}
 
 function rst(){
   document.getElementById('q').value='';
-  ['fo','fd','fr'].forEach(id=>document.getElementById(id).value='');
+  ['fo','fd','fr','fch'].forEach(id=>document.getElementById(id).value='');
   const sl=document.getElementById('fs');sl.value=14;sl.style.setProperty('--v','0%');
   document.getElementById('slbl').textContent='14.0';
   pg=1;R();
