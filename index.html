@@ -167,15 +167,13 @@ footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted)
 let ALL=[], fil=[], sc='body', sd=-1, pg=1, champOnly=false;
 const PER=30;
 
-let CHAMP_SET = new Set();
-function buildChampSet(data){
-  const byVar = {};
-  data.forEach(r=>{
-    if(!r.odrada||!r.body) return;
-    if(!byVar[r.odrada]||r.body>byVar[r.odrada].body) byVar[r.odrada]=r;
-  });
-  CHAMP_SET = new Set(Object.values(byVar).map(r=>r.vzorek));
-}
+let CHAMP_SET = new Set([
+  'Ag2','Al6','An4','Au2','CB3','CC6','CM2','CS8','Df15','PSV1',
+  'Fr1','Hi14','Bou21','Ch35','Ke3','MM7','MP1','MT16','Mus3','Ng5',
+  'Pa29','RB6','RM9','RR64','RŠ35','RV2','Sg21','SmČ1','SmB7','SoG6',
+  'Sol8','Sv17','Ro12','SZ3','TČ22','VČR4','VZ14','Zw8','Čou5'
+]);
+function buildChampSet(data){ /* champions are hardcoded from official list */ }
 
 function toggleChamp(){
   champOnly = !champOnly;
