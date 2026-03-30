@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Výsledky degustace vín 2026 — Boršice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --wine: #6B1A2A; --wine-dark: #3D0B16;
+  --gold: #C9A84C; --gold-l: #E8C97A;
+  --cream: #F7F0E6; --white: #FDFAF6;
+  --text: #1A0A0F; --muted: #7A5A62;
+  --border: rgba(107,26,42,0.13);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); font-size: 14px; }
+
+.hero {
+  background: var(--wine-dark);
+  background-image: radial-gradient(ellipse at 20% 60%, rgba(107,26,42,0.7) 0%, transparent 55%);
+  color: var(--cream); padding: 56px 40px 44px; position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='rgba(201,168,76,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+}
+.hero-in { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+.badge { display: inline-block; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-l); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 18px; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,5vw,62px); font-weight: 600; line-height: 1.07; margin-bottom: 6px; }
+h1 em { font-style: italic; color: var(--gold-l); }
+.sub { color: rgba(247,240,230,0.45); font-size: 14px; font-weight: 300; margin-bottom: 34px; }
+.stats { display: flex; gap: 8px; flex-wrap: wrap; }
+.stat { background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.18); border-radius: 12px; padding: 15px 22px; }
+.sn { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--gold-l); line-height: 1; display: block; }
+.sl { font-size: 10px; color: rgba(247,240,230,0.4); letter-spacing: 1.2px; text-transform: uppercase; display: block; margin-top: 2px; }
+
+.bar { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 99; box-shadow: 0 2px 12px rgba(61,11,22,0.07); }
+.bar-in { max-width: 1120px; margin: 0 auto; padding: 11px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.sw { position: relative; flex: 1; min-width: 180px; }
+.sw svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); width: 14px; height: 14px; }
+input[type=text], select {
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text);
+  border: 1.5px solid var(--border); border-radius: 8px; background: var(--cream); outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+input[type=text] { width: 100%; padding: 8px 10px 8px 30px; }
+select { padding: 8px 26px 8px 10px; cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A5A62' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center; min-width: 138px;
+}
+input:focus, select:focus { border-color: var(--wine); box-shadow: 0 0 0 3px rgba(107,26,42,0.07); }
+.rw { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+input[type=range] { -webkit-appearance: none; width: 88px; height: 4px; border-radius: 2px; outline: none; cursor: pointer; border: none;
+  background: linear-gradient(to right, var(--wine) 0%, var(--wine) var(--v,0%), #ddd var(--v,0%)); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--wine); border: 2px solid var(--white); cursor: pointer; }
+#slbl { font-weight: 500; color: var(--wine); min-width: 28px; }
+.reset { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--wine); background: none; border: 1.5px solid rgba(107,26,42,0.3); border-radius: 8px; padding: 7px 12px; cursor: pointer; transition: all .15s; font-weight: 500; white-space: nowrap; }
+.reset:hover { background: var(--wine); color: #fff; border-color: var(--wine); }
+#cnt { margin-left: auto; font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 26px 40px 60px; }
+.box { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 24px rgba(61,11,22,0.09); }
+table { width: 100%; border-collapse: collapse; }
+thead { background: var(--wine-dark); }
+th { padding: 12px 14px; text-align: left; font-size: 10px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: rgba(247,240,230,0.5); cursor: pointer; user-select: none; white-space: nowrap; transition: color .12s; }
+th:hover, th.on { color: var(--gold-l); }
+th span { margin-left: 4px; opacity: .35; font-size: 9px; }
+th.on span { opacity: 1; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(107,26,42,0.02); }
+.ci { font-size: 11px; color: var(--muted); font-weight: 500; }
+.cp { font-weight: 500; color: var(--wine-dark); }
+.co { display: inline-block; font-size: 11px; color: var(--wine); background: rgba(107,26,42,0.08); border-radius: 5px; padding: 2px 7px; white-space: nowrap; }
+.cd { font-style: italic; }
+.cr, .cz { color: var(--muted); font-size: 12px; }
+.cs { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; text-align: right; }
+.hi { color: #2a7a50; } .mi { color: var(--wine); } .lo { color: var(--muted); }
+
+.pages { display: flex; justify-content: center; align-items: center; gap: 4px; padding: 20px 12px 8px; flex-wrap: wrap; }
+.pb { font-family: 'DM Sans', sans-serif; font-size: 13px; min-width: 34px; height: 34px; border: 1.5px solid var(--border); border-radius: 7px; background: var(--white); color: var(--text); cursor: pointer; transition: all .13s; display: flex; align-items: center; justify-content: center; }
+.pb:hover:not(:disabled) { border-color: var(--wine); color: var(--wine); }
+.pb.cur { background: var(--wine); color: #fff; border-color: var(--wine); font-weight: 500; }
+.pb:disabled { opacity: .3; cursor: not-allowed; }
+.pi { font-size: 11px; color: var(--muted); margin: 0 5px; }
+
+.msg { text-align: center; padding: 60px 20px; color: var(--muted); }
+.mi2 { font-size: 34px; margin-bottom: 10px; opacity: .4; }
+.mt { font-family: 'Cormorant Garamond', serif; font-size: 20px; }
+
+footer { text-align: center; padding: 16px; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border); letter-spacing: .3px; }
+
+@media(max-width:700px){
+  .hero { padding: 34px 16px 30px; }
+  .bar-in { padding: 10px 12px; }
+  .wrap { padding: 14px 8px 40px; }
+  h1 { font-size: 28px; }
+  .hm { display: none; }
+  th, td { padding: 9px 8px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="badge">🍇 Degustační katalog 2026</div>
+    <h1>Výsledky degustace <em>vín 2026</em></h1>
+    <p class="sub">Boršice a okolí · Hodnocení komisí · Kompletní výsledky</p>
+    <div class="stats">
+      <div class="stat"><span class="sn" id="s1">—</span><span class="sl">Vzorků</span></div>
+      <div class="stat"><span class="sn" id="s2">—</span><span class="sl">Obcí</span></div>
+      <div class="stat"><span class="sn" id="s3">—</span><span class="sl">Prům. bodů</span></div>
+      <div class="stat"><span class="sn" id="s4">—</span><span class="sl">Nejvyšší</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="sw">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6"/><path d="M15 15l3 3"/></svg>
+      <input type="text" id="q" placeholder="Hledat pěstitele, odrůdu, obec…" oninput="R()">
+    </div>
+    <select id="fo" onchange="R()"><option value="">Všechny obce</option></select>
+    <select id="fd" onchange="R()"><option value="">Všechny odrůdy</option></select>
+    <select id="fr" onchange="R()"><option value="">Všechny ročníky</option></select>
+    <div class="rw">
+      Min:
+      <input type="range" id="fs" min="14" max="19.5" step="0.1" value="14" oninput="si(this)">
+      <span id="slbl">14.0</span>
+    </div>
+    <button class="reset" onclick="rst()">✕ Reset</button>
+    <span id="cnt"></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="box">
+    <div id="loading" class="msg"><div class="mi2">🍷</div><div class="mt">Načítám data…</div></div>
+    <table id="tbl" style="display:none">
+      <thead><tr>
+        <th onclick="S('vzorek')" id="tv">Č. vzorku <span>↕</span></th>
+        <th onclick="S('obec')" id="to">Obec <span>↕</span></th>
+        <th onclick="S('pestitel')" id="tp">Pěstitel <span>↕</span></th>
+        <th onclick="S('odrada')" id="td">Odrůda <span>↕</span></th>
+        <th onclick="S('rocnik')" id="tr" class="hm">Ročník <span>↕</span></th>
+        <th onclick="S('zarazeni')" id="tz" class="hm">Zařazení <span>↕</span></th>
+        <th onclick="S('body')" id="tb" style="text-align:right">Body <span>↕</span></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div id="empty" class="msg" style="display:none"><div class="mi2">🔍</div><div class="mt">Žádné výsledky</div></div>
+    <div class="pages" id="pages"></div>
+  </div>
+</div>
+
+<footer>Degustace vín 2026 · Boršice a okolí · Zdroj dat: degustace_vin_2026.csv</footer>
+
+<script>
+let ALL=[], fil=[], sc='body', sd=-1, pg=1;
+const PER=30;
+
+async function load(){
+  const res = await fetch('degustace_vin_2026.csv');
+  const txt = await res.text();
+  const lines = txt.trim().split('\n');
+  const hdr = lines[0].split(',');
+  ALL = lines.slice(1).map(l=>{
+    const v=l.split(','), o={};
+    hdr.forEach((h,i)=> o[h.trim()]=(v[i]||'').trim());
+    o.body=parseFloat(o.body)||0;
+    return o;
+  });
+  const bs=ALL.map(r=>r.body).filter(Boolean);
+  document.getElementById('s1').textContent=ALL.length;
+  document.getElementById('s2').textContent=new Set(ALL.map(r=>r.obec)).size;
+  document.getElementById('s3').textContent=(bs.reduce((a,b)=>a+b,0)/bs.length).toFixed(1);
+  document.getElementById('s4').textContent=Math.max(...bs);
+  F('fo',[...new Set(ALL.map(r=>r.obec))].filter(Boolean).sort());
+  F('fd',[...new Set(ALL.map(r=>r.odrada))].filter(Boolean).sort());
+  F('fr',[...new Set(ALL.map(r=>r.rocnik))].filter(Boolean).sort().reverse());
+  document.getElementById('loading').style.display='none';
+  document.getElementById('tbl').style.display='table';
+  S('body');
+}
+
+function F(id,vals){
+  const el=document.getElementById(id);
+  vals.forEach(v=>{const o=document.createElement('option');o.value=o.textContent=v;el.appendChild(o);});
+}
+
+function si(el){
+  const pct=((el.value-14)/(19.5-14))*100;
+  el.style.setProperty('--v',pct+'%');
+  document.getElementById('slbl').textContent=parseFloat(el.value).toFixed(1);
+  R();
+}
+
+function S(col){
+  if(sc===col)sd*=-1; else{sc=col;sd=col==='body'?-1:1;}
+  document.querySelectorAll('th').forEach(t=>{t.classList.remove('on');t.querySelector('span').textContent='↕';});
+  const map={vzorek:'tv',obec:'to',pestitel:'tp',odrada:'td',rocnik:'tr',zarazeni:'tz',body:'tb'};
+  const th=document.getElementById(map[col]);
+  if(th){th.classList.add('on');th.querySelector('span').textContent=sd===1?'↑':'↓';}
+  R();
+}
+
+function R(){
+  const q=document.getElementById('q').value.toLowerCase();
+  const ob=document.getElementById('fo').value;
+  const od=document.getElementById('fd').value;
+  const ro=document.getElementById('fr').value;
+  const mn=parseFloat(document.getElementById('fs').value);
+  fil=ALL.filter(r=>
+    (!q||[r.pestitel,r.odrada,r.vzorek,r.obec].join(' ').toLowerCase().includes(q))&&
+    (!ob||r.obec===ob)&&(!od||r.odrada===od)&&(!ro||r.rocnik===ro)&&r.body>=mn
+  );
+  fil.sort((a,b)=>{
+    const av=a[sc],bv=b[sc];
+    if(typeof av==='number')return(av-bv)*sd;
+    return String(av).localeCompare(String(bv),'cs')*sd;
+  });
+  const tot=fil.length, pages=Math.ceil(tot/PER)||1;
+  if(pg>pages)pg=1;
+  document.getElementById('cnt').textContent=`${tot} vzorků`;
+  document.getElementById('empty').style.display=tot?'none':'block';
+  const slice=fil.slice((pg-1)*PER,pg*PER);
+  document.getElementById('tbody').innerHTML=slice.map(r=>{
+    const b=r.body, c=b>=19?'hi':b>=18?'mi':'lo';
+    return`<tr><td class="ci">${r.vzorek}</td><td><span class="co">${r.obec}</span></td><td class="cp">${r.pestitel}</td><td class="cd">${r.odrada}</td><td class="cr hm">${r.rocnik}</td><td class="cz hm">${r.zarazeni}</td><td class="cs ${c}">${b.toFixed(1)}</td></tr>`;
+  }).join('');
+  // Pagination
+  const pg_el=document.getElementById('pages');
+  if(pages<=1){pg_el.innerHTML='';return;}
+  let h=`<button class="pb" onclick="G(${pg-1})" ${pg===1?'disabled':''}>‹</button>`;
+  PR(pg,pages).forEach(p=>{ h+=p==='…'?`<span class="pi">…</span>`:`<button class="pb ${p===pg?'cur':''}" onclick="G(${p})">${p}</button>`; });
+  h+=`<button class="pb" onclick="G(${pg+1})" ${pg===pages?'disabled':''}>›</button><span class="pi">${pg} / ${pages}</span>`;
+  pg_el.innerHTML=h;
+}
+
+function PR(c,t){
+  if(t<=7)return Array.from({length:t},(_,i)=>i+1);
+  const r=[1];
+  if(c>3)r.push('…');
+  for(let i=Math.max(2,c-1);i<=Math.min(t-1,c+1);i++)r.push(i);
+  if(c<t-2)r.push('…');
+  r.push(t);return r;
+}
+
+function G(p){pg=p;R();window.scrollTo({top:0,behavior:'smooth'});}
+
+function rst(){
+  document.getElementById('q').value='';
+  ['fo','fd','fr'].forEach(id=>document.getElementById(id).value='');
+  const sl=document.getElementById('fs');sl.value=14;sl.style.setProperty('--v','0%');
+  document.getElementById('slbl').textContent='14.0';
+  pg=1;R();
+}
+
+load().catch(()=>{
+  document.getElementById('loading').innerHTML='<div class="mi2">⚠️</div><div class="mt">Soubor degustace_vin_2026.csv musí být ve stejné složce jako tento soubor.</div>';
+});
+</script>
+</body>
+</html>
